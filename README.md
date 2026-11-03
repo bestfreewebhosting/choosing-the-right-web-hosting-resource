@@ -34,7 +34,7 @@ This resource is useful for:
 | [Types of Web Hosting Explained](guides/types-of-web-hosting-explained.md) | Understand shared, VPS, cloud, dedicated, and managed WordPress hosting. |
 | [Web Hosting Comparison Checklist](guides/web-hosting-comparison-checklist.md) | Important features to compare before purchasing. |
 | [Questions to Ask Before Buying Hosting](guides/questions-to-ask-before-buying-hosting.md) | Essential questions to avoid unsuitable hosting plans. |
-| [Hosting Comparison Worksheet](resources/hosting-comparison-worksheet.md) | A practical worksheet for comparing hosting providers. |
+| [Hosting Comparison Worksheet](web-hosting-comparison-worksheet.md) | A practical worksheet for comparing hosting providers. |
 
 ## 🔍 What Should You Consider Before Choosing Hosting?
 
