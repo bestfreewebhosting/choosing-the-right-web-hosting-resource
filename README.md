@@ -88,6 +88,25 @@ There is no single best hosting provider for every website. The right choice dep
 
 Use these resources as a starting point for your research, compare multiple providers, and make a decision based on your actual website requirements.
 
+## 🚀 Deploy the Website on Render
+
+This repository includes a static HTML website and can be deployed as a Render Static Site.
+
+Use these settings when creating the site:
+
+| Render setting | Value |
+|---|---|
+| Service type | Static Site |
+| Repository | `bestfreewebhosting/choosing-the-right-web-hosting-resource` |
+| Branch | `main` |
+| Root Directory | Leave blank |
+| Build Command | Leave blank |
+| Publish Directory | `.` |
+
+The homepage is `index.html` in the repository root. Guide pages are inside `guides/`. After connecting the repository, Render can automatically redeploy the site when new commits are pushed to the selected branch.
+
+Official instructions: [Render Static Sites](https://render.com/docs/static-sites).
+
 ## 🤝 Contributions
 
 Suggestions and improvements are welcome!
