@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A practical developer guide to selecting a bare metal server, from CPU and memory to storage, networking, security, and workload fit.">
+  <meta name="theme-color" content="#10243a">
+  <title>Bare Metal Server Selection Guide for Developers</title>
+  <style>
+    :root{--ink:#17243a;--muted:#58677d;--line:#dce3ec;--bg:#f5f7fb;--brand:#173c66;--accent:#e8f1fb}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 Arial,Helvetica,sans-serif}
+    a{color:#145da0;text-underline-offset:3px}.wrap{width:min(900px,calc(100% - 36px));margin:auto}
+    header{background:linear-gradient(135deg,#10243a,#214d78);color:#fff;padding:62px 0 54px}
+    .eyebrow{font-size:12px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:#c8def4}
+    h1{font-size:clamp(34px,6vw,54px);line-height:1.12;letter-spacing:-1.3px;margin:16px 0}
+    header p{max-width:720px;color:#e0eaf5;font-size:18px;margin:0}
+    main{padding:38px 0 70px}.panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;margin:0 0 22px;box-shadow:0 5px 20px rgba(20,45,75,.04)}
+    h2{font-size:27px;line-height:1.25;margin:0 0 12px}h3{font-size:19px;margin:22px 0 7px}
+    p{margin:10px 0 16px}.muted,.note{color:var(--muted)}.toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
+    .toc a{display:block;padding:8px 11px;border:1px solid var(--line);border-radius:8px;text-decoration:none}
+    table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}th,td{text-align:left;padding:11px;border:1px solid var(--line);vertical-align:top}th{background:#edf3f9}
+    ul,ol{padding-left:23px}li{margin:7px 0}.callout{background:var(--accent);border-left:4px solid #3976ae;padding:15px 18px;border-radius:8px;margin:18px 0}
+    footer{border-top:1px solid var(--line);padding:24px 0;color:var(--muted);font-size:13px}
+    @media(max-width:600px){.panel{padding:18px}table{display:block;overflow-x:auto;white-space:normal}}
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="eyebrow">Infrastructure guide for developers</div>
+    <h1>Bare Metal Server Selection Guide for Developers</h1>
+    <p>Choose physical server infrastructure based on your application's real requirements. This guide covers hardware, storage, networking, security, operations, and the questions to ask before committing to a bare metal server.</p>
+  </div>
+</header>
+<main class="wrap">
+  <section class="panel">
+    <p class="muted"><strong>Quick answer:</strong> A bare metal server can suit workloads that need dedicated physical resources, predictable hardware access, or specialized configurations. Start with the workload and operating requirements—not the largest CPU or the lowest advertised price.</p>
+    <h2>On this page</h2>
+    <nav class="toc" aria-label="Table of contents">
+      <a href="#bare-metal">What is a bare metal server?</a>
+      <a href="#workload">Define your workload</a>
+      <a href="#hardware">Evaluate hardware</a>
+      <a href="#network">Check networking</a>
+      <a href="#security">Review security</a>
+      <a href="#operations">Plan operations</a>
+      <a href="#checklist">Selection checklist</a>
+      <a href="#faq">FAQs</a>
+    </nav>
+  </section>
+
+  <section class="panel" id="bare-metal">
+    <h2>What Is a Bare Metal Server?</h2>
+    <p>A bare metal server is a physical machine assigned to one customer or organization rather than being divided among multiple customers through a shared virtualization layer. The customer typically has greater control over the operating system, software stack, and hardware configuration than with many managed hosting products.</p>
+    <p>That control can be useful for databases, virtualization, high-throughput applications, build systems, and workloads with specific hardware or compliance requirements. It also means the team must understand provisioning, patching, monitoring, backups, and recovery responsibilities.</p>
+  </section>
+
+  <section class="panel" id="workload">
+    <h2>1. Define the Workload Before Choosing Hardware</h2>
+    <p>Write down what the server will run and how its resource use changes over time. A database-heavy application may need fast storage and memory capacity, while a compute-heavy service may benefit more from CPU cores and sustained performance.</p>
+    <ul>
+      <li><strong>Application type:</strong> web application, database, game server, CI runner, analytics platform, or virtualization host.</li>
+      <li><strong>Traffic pattern:</strong> average and peak requests, concurrent users, and expected growth.</li>
+      <li><strong>Resource profile:</strong> CPU-bound, memory-bound, storage-bound, or network-bound.</li>
+      <li><strong>Availability target:</strong> acceptable downtime, maintenance windows, and recovery objectives.</li>
+      <li><strong>Software requirements:</strong> operating system, kernel, hypervisor, control panel, and licensing constraints.</li>
+    </ul>
+    <div class="callout">Tip: Use monitoring data from your current environment where possible. Estimates based only on projected traffic can lead to buying more hardware than the application needs.</div>
+  </section>
+
+  <section class="panel" id="hardware">
+    <h2>2. Evaluate the Core Hardware</h2>
+    <h3>CPU</h3>
+    <p>Compare processor generation, core and thread count, clock behavior, and workload compatibility. More cores are not automatically better: some applications depend on strong single-thread performance, while parallel jobs can use more cores efficiently.</p>
+    <h3>RAM</h3>
+    <p>Estimate the memory used by the operating system, application processes, database cache, and background services. Leave headroom for traffic spikes and maintenance tasks. Check the server's supported memory capacity and upgrade options.</p>
+    <h3>Storage</h3>
+    <p>Compare NVMe SSD, SATA SSD, and HDD options according to latency, throughput, capacity, and cost. For databases and transactional applications, random I/O performance and endurance can matter as much as headline sequential speeds. Ask whether disks are configured individually, mirrored, or in a RAID arrangement, and understand the failure implications.</p>
+    <h3>Upgrade and replacement policy</h3>
+    <p>Confirm whether RAM, disks, and network components can be upgraded, how hardware failures are handled, and whether replacements require downtime. Provider-specific configurations vary, so verify the exact model and terms before ordering.</p>
+  </section>
+
+  <section class="panel" id="network">
+    <h2>3. Check Network Capacity and Data Center Location</h2>
+    <p>Review the committed port speed, included transfer allowance, overage policy, IP address options, routing, and DDoS protection terms. A high port speed does not guarantee low latency or consistent throughput to every user.</p>
+    <p>Choose a data center based on where users, APIs, and data sources are located. Test latency from the regions that matter to your application, and ask about network redundancy and upstream connectivity.</p>
+  </section>
+
+  <section class="panel" id="security">
+    <h2>4. Review Security and Access Controls</h2>
+    <ul>
+      <li>Confirm availability of remote console, rescue mode, and secure administrative access.</li>
+      <li>Use SSH keys or equivalent strong authentication and restrict management access.</li>
+      <li>Plan operating-system updates, firewall rules, vulnerability reviews, and log monitoring.</li>
+      <li>Check whether DDoS mitigation, private networking, and hardware-level protections are included or separately priced.</li>
+      <li>Define backup frequency, off-server backup storage, retention, and restore testing.</li>
+    </ul>
+    <p>Do not assume that a dedicated physical server automatically includes managed security or backups. Confirm which tasks are handled by the provider and which remain your team's responsibility.</p>
+  </section>
+
+  <section class="panel" id="operations">
+    <h2>5. Understand Management, Support, and Total Cost</h2>
+    <p>Compare the complete operating cost rather than the monthly server headline price. Include setup fees, bandwidth or traffic charges, IP addresses, licenses, backup storage, remote hands, management services, taxes, and renewal pricing where applicable.</p>
+    <p>Clarify the support scope and response commitments. Ask how hardware incidents are reported, whether support can assist with network or boot issues, and what service-level agreement applies. Also check cancellation terms and whether data can be retrieved easily when the contract ends.</p>
+  </section>
+
+  <section class="panel" id="checklist">
+    <h2>Bare Metal Server Selection Checklist</h2>
+    <ul>
+      <li>Workload and peak resource requirements are documented.</li>
+      <li>CPU model, memory capacity, and storage type match the workload.</li>
+      <li>Network speed, transfer limits, and data center location are suitable.</li>
+      <li>Operating system, virtualization, and software licensing are supported.</li>
+      <li>Backup, recovery, monitoring, and security responsibilities are clear.</li>
+      <li>Hardware replacement, support scope, and SLA are documented.</li>
+      <li>Total monthly and one-time costs have been compared.</li>
+      <li>Upgrade path and exit or migration process are understood.</li>
+    </ul>
+    <p>Once the requirements are clear, compare real configurations and provider terms side by side. For a provider shortlist, see this <a href="https://googiehost.com/blog/best-bare-metal-servers/">comparison of the best bare metal server providers</a>. Check each provider's current specifications, availability, and contract details before making a decision.</p>
+  </section>
+
+  <section class="panel" id="faq">
+    <h2>Frequently Asked Questions</h2>
+    <h3>Is a bare metal server suitable for developers?</h3>
+    <p>It can be, especially when a project needs dedicated hardware, custom operating-system settings, virtualization, or predictable access to physical resources. For small projects with variable demand, a VPS or cloud instance may be easier to scale and manage.</p>
+    <h3>How much RAM do I need?</h3>
+    <p>There is no universal amount. Estimate memory for the operating system, application, database, cache, and peak concurrency, then leave room for growth. Benchmark the application under a representative workload.</p>
+    <h3>Is bare metal better than a VPS?</h3>
+    <p>Neither is universally better. Bare metal provides direct access to dedicated physical hardware, while a VPS is generally easier to provision and resize. Choose based on performance needs, flexibility, budget, and operational expertise.</p>
+    <h3>What should I check before ordering?</h3>
+    <p>Verify the exact CPU, RAM, disk configuration, network limits, data center, support scope, setup and renewal costs, backup options, and hardware replacement policy.</p>
+  </section>
+  <footer>
+    <div>Independent educational resource for developers evaluating server infrastructure. Specifications and service terms differ by provider; verify details directly before purchase.</div>
+  </footer>
+</main>
+</body>
+</html>
