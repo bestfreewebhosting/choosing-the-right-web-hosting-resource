@@ -35,6 +35,7 @@ This resource is useful for:
 | [Web Hosting Comparison Checklist](guides/web-hosting-comparison-checklist.md) | Important features to compare before purchasing. |
 | [Questions to Ask Before Buying Hosting](guides/questions-to-ask-before-buying-hosting.md) | Essential questions to avoid unsuitable hosting plans. |
 | [Hosting Comparison Worksheet](web-hosting-comparison-worksheet.md) | A practical worksheet for comparing hosting providers. |
+| [Bare Metal Server Selection Guide for Developers](bare-metal-server-selection-guide/index.html) | A practical guide to evaluating CPUs, memory, storage, networking, security, and operational requirements for bare metal infrastructure. |
 
 ## 🔍 What Should You Consider Before Choosing Hosting?
 
